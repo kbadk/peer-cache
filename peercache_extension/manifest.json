@@ -1,0 +1,56 @@
+{
+	"manifest_version": 2,
+	"minimum_chrome_version": "23",
+
+	"name": "Peer Cache (extension)",
+	"description": "Peer-to-peer webcaching (extension).",
+	"version": "1.0",
+	"author": "Kristian Borup Antonsen",
+
+	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv6GVxbrN57Qccp8eKGBbEXhcrxRRPEsiOSpRJctKv6MYSAT4fYx7pY3ZYefQg4vHT9SLkCS/m+jJgGCLO5sK7frgxlJepQHi02gtRfEpvQ+9t9qRwUtCPagxjc0DrMdgFbNaSJUD0pla4F12/MY4z+4EFPl1QPK+RmASGESdKxg0Ov+zOnLpwJ+eriah/mt1koa6WmD3vWaZMYEysMtLTabxXG5SW2+utYhsRq1f3HPHyFZ5stlX5i3dT7HQFiHDFLd+z3K3GRid93UJasEtMA2aXAy25DXXi8nwoZ0WzIuocdMO5nJdEHUrwbCvgzN6XIYSXcc6Snd3oxwOhTL+rQIDAQAB",
+
+	"icons": {
+		"512": "icon.png"
+	},
+
+	"background": {
+		"scripts": [
+			"libs/md5.js",
+			"libs/lz-string.js",
+			"AbstractSyncManager.js",
+			"StatisticsManager.js",
+			"SettingsManager.js",
+			"PrivateTreeIntersection.js",
+			"PeerHelper.js",
+			"CacheManager.js",
+			"TabManager.js",
+			"background.js"
+		]
+	},
+
+	"content_security_policy": "script-src 'self'; object-src 'self'",
+
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["content.js"]
+		}
+	],
+
+	"browser_action": {
+		"name": "Peer Cache",
+		"default_icon": "icon.png",
+		"default_popup": "extension-button/popup.html"
+	},
+
+	"permissions": [
+		"unlimitedStorage",
+		"storage",
+		"tabs",
+		"activeTab",
+		"webNavigation",
+		"http://*/*",
+		"https://*/*",
+		"background"
+	]
+}

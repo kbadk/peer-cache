@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	@font-face {
+		font-family: Timber;
+		src: url(../resources/timber.woff);
+	}
+	html, body, h1 {
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		font-family: arial, sans-serif;
+		font-size: 80%;
+		width: 300px;
+	}
+	code {
+		font-size: 125%;
+	}
+	table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	#logo {
+		background: #7fbb63;;
+		color: #eee;
+		width: 100%;
+		height: 30px;
+		border-bottom: 5px solid #2a2f33;
+		padding: 5px 0 0;
+	}
+	#logo h1 {
+		color: #fff;
+		font-family: Timber, sans-serif;
+		font-weight: 200;
+		text-align: center;
+	}
+	#container {
+		margin: 10px;
+	}
+	#topbox {
+		background: #3f4955;
+		color: #eee;
+		width: 100%;
+		padding: 5px;
+	}
+	#topbox #infobox tr td:nth-child(1) {
+		text-align: right;
+		font-weight: bold;
+		padding-right: 8px;
+	}
+	#statistics tr td:nth-child(1) {
+		width: 150px;
+		text-align: right;
+		font-weight: bold;
+		padding-right: 8px;
+	}
+	.noOverflow {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+	#buttonContainer {
+		text-align: center;
+		padding: 0 0 65px 10px;
+	}
+	#buttonContainer button {
+		font-size: 95%;
+		font-weight: bold;
+		width: 120px;
+		height: 44px;
+		float: left;
+		margin: 5px;
+		border-radius: 5px;
+		border: 1px solid #eee;
+		background: #f0f0f0;
+		box-shadow: 0 0 1px rgba(0,0,0,.25);
+		text-shadow: 0px 0px 1px rgba(255,255,255,.5);
+		cursor: pointer;
+	}
+	#buttonContainer button#cacheIsStarredButton {
+		color: #aaa;
+		background: #f6f6f6;
+		display:none;
+		padding-top: 13px;
+		cursor: auto;
+	}
+	</style>
+	<script src="../libs/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../libs/moment.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+
+	<div id="logo">
+		<h1>PeEr caCHE</h1>
+	</div>
+
+	<div id="topbox">
+		<table id="infobox">
+			<tr>
+				<td>Client ID</td>
+				<td><code id="clientID"></code></td>
+			</tr>
+			<tr>
+				<td>Server Address</td>
+				<td id="serverAddr"></td>
+			</tr>
+				<tr>
+					<td>Storage Usage</td>
+					<td id="diskSpaceUsed"></td>
+				</tr>
+		</table>
+	</div>
+
+	<div id="container">
+
+		<p style="text-align:center;margin:0;padding:0"><code id="cacheCollectionURL"></code></p>
+		<p style="text-align:center;margin:0;padding:5px 0">was collected <span id="cacheCollectionTime"></span>.</p>
+		<div id="buttonContainer">
+			<button id="starCacheButton" tabindex="-1">Star this cache</button>
+			<button id="cacheIsStarredButton">&#10004; Starred</p>
+			<button id="browseCachesButton" tabindex="-1">Browser caches for this site</button>
+		</div>
+
+		<table id="statistics">
+			<tr>
+				<td>Peer Count</td>
+				<td id="peerCount"></td>
+			</tr>
+			<tr>
+				<td>Total Caches</td>
+				<td id="totalCaches"></td>
+			</tr>
+			<tr>
+				<td>Clean Caches</td>
+				<td id="cleanCaches"></td>
+			</tr>
+			<tr>
+				<td>Starred Caches</td>
+				<td id="starredCaches"></td>
+			</tr>
+			<tr>
+				<td>Caches served</td>
+				<td id="cachesServed"></td>
+			</tr>
+			<tr>
+				<td>HTS served</td>
+				<td id="hashStructuresServed"></td>
+			</tr>
+		</table>
+	</div>
+
+	<script src="popup.js" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>

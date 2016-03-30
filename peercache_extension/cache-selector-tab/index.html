@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Find Cache</title>
+	<style type="text/css" media="screen">
+	@font-face {
+		font-family: Timber;
+		src: url(../resources/timber.woff);
+	}
+	body {
+		font-family: arial, sans-serif;
+		font-size: 85%;
+		background: #2a2f33;
+		padding: 1em 2em;
+	}
+	code {
+		font-size: 125%;
+	}
+	#container {
+		background: #fff;
+		border-radius: 10px;
+		box-shadow: 0 0 10px rgba(0,0,0,.25);
+	}
+	#topbar {
+		background: #3f4955;
+		color: #eee;
+		width: 100%;
+		height: 120px;
+	}
+	#topbar #logo {
+		background: #7fbb63;
+		width: 120px;
+		height: 100%;
+		float: left;
+	}
+	#topbar #logo h1 {
+		color: #fff;
+		font-family: Timber, sans-serif;
+		font-weight: 200;
+		font-size: 230%;
+		text-align: center;
+		padding: .9em 0;
+		margin: 0;
+	}
+	#topbar #infobox {
+		float: right;
+		margin: 1.2em;
+	}
+	#topbar #infobox td {
+		padding: 2px 4px;
+	}
+	#topbar #infobox tr td:nth-child(1) {
+		text-align: right;
+		font-weight: bold;
+	}
+	#main {
+		color: #444;
+		padding: 1.2em;
+	}
+	#main h1, #main h2, #main table thead {
+		color: #000;
+	}
+	#main .tableWrapper {
+		max-height: 182px;
+		overflow: hidden;
+	}
+	#main .expandButton {
+		font-size: 110%;
+		font-weight: bold;
+		display: block;
+		width: 12em;
+		margin: .5em auto 0;
+		padding: .5em;
+		border-radius: 5px;
+		border: 1px solid #eee;
+		background: #f0f0f0;
+		box-shadow: 0 0 1px rgba(0,0,0,.25);
+		text-shadow: 0px 0px 1px rgba(255,255,255,.5);
+	}
+	#main table tr:not(.dimmed), #main button {
+		cursor: pointer;
+	}
+	#main table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	#main table thead {
+		border-top: 2px solid #eee;
+		border-bottom: 2px solid #eee;
+		text-align: left;
+		text-transform: uppercase;
+	}
+	#main table th {
+		padding: 8px 8px;
+	}
+	#main table td {
+		border-bottom: 2px solid #eee;
+		padding: 4px 8px;
+	}
+	#main table td:nth-child(1) {
+		width: 300px;
+		text-overflow: ellipsis;
+	}
+	#main table td:nth-child(2) {
+		width: 240px;
+	}
+	#main table td:nth-child(4) {
+		width: 20px;
+	}
+	.dimmed {
+		color: #ccc;
+	}
+	.starred, .clean {
+		color: #fb5;
+		font-style: normal;
+		text-shadow: 0px 0px 1px rgba(0,0,0,.8);
+		padding-right: 5px;
+	}
+	.clean {
+		color: #cdd;
+	}
+	.dimmed .starred, .dimmed .clean {
+		opacity: 0.4;
+	}
+	</style>
+</head>
+<body>
+
+<div id="container">
+
+	<div id="topbar">
+
+		<div id="logo">
+			<h1>PeEr<br>caCHE</h1>
+		</div>
+
+		<table id="infobox">
+			<tr>
+				<td>Client ID</td>
+				<td><code id="clientID"></code></td>
+			</tr>
+			<tr>
+				<td>Provider ID</td>
+				<td><code id="providerID"></code></td>
+			</tr>
+			<tr>
+				<td>Server Address</td>
+				<td><span id="serverAddr"></span></td>
+			</tr>
+			<tr>
+				<td>Storage Usage</td>
+				<td><span id="storageUsage"></span></td>
+			</tr>
+		</table>
+
+	</div>
+
+	<div id="main">
+
+		<h1 id="errorHeader" style="display:none">This website is not available</h1>
+		<p id="errorMessage" style="display:none">Encountered <code id="errorCode">net::ERR_SOME_ERROR</code> trying to access <a id="url">http://some-website/</a>.</p>
+
+		<h2>Local Cache</h2>
+
+		<div id="localCacheError">No local copies found.</div>
+
+		<div id="localCachesTableWrapper" class="tableWrapper" style="display:none">
+			<table id="localCaches" style="display:none">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Date</th>
+						<th>Hash</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<button class="expandButton" id="localCachesExpandButton" style="display:none">See all <span id="localCacheCount"></span> caches</button>
+
+		<h2>Peer Caches</h2>
+
+		<div id="peerCacheError">No peer copies found.</div>
+
+		<div id="peerCachesTableWrapper" class="tableWrapper" style="display:none">
+			<table id="peerCaches" style="display:none">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Date</th>
+						<th>Hash</th>
+						<th>Provider</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<button class="expandButton" id="peerCachesExpandButton" style="display:none">See all <span id="peerCacheCount"></span> caches</button>
+
+	</div>
+
+</div>
+
+<!-- Gravatars? -->
+
+<script src="../libs/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../libs/moment.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="cache-selector.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

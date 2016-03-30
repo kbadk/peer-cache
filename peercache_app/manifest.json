@@ -1,0 +1,38 @@
+{
+	"manifest_version": 2,
+	"minimum_chrome_version": "23",
+
+	"name": "Peer Cache (app)",
+	"description": "Peer-to-peer webcaching (app).",
+	"version": "1.0",
+	"author": "Kristian Borup Antonsen",
+
+	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuOum322t59wuASo7z82rvMcFs2j+FOTgif7IO8SrwKcjxZJXwAL0HrLtzDZI4p2LDXGrx3T2KXY6eOp8ouX+SYE/xLZQ0/D+AsBuu4hx6oje6pjYFt3Yuy+mgthinghXcFv4XomRYAueThk8h5QaCEJvnsOchQBFvaqnUR/dgnib2XS5RAfqnGt6vNcB4Hi8f1dKvx+XShGwHZcujwJdd5bLqV1XdPOWXBgdzuKVtvONwlx50FyKLudPynfDEBNgyqAGXQObUyUi8Za53BeasjfbJG8U91a/IA6afjFIOvPWzFuq9q5yWgKYMTe5jvQVPSMnYk5ZcrN4kPah1XoZYwIDAQAB",
+
+	"icons": {
+		"512": "icon.png"
+	},
+
+	"app": {
+		"background": {
+			"scripts": [
+				"libs/sha1.js",
+				"libs/http.js",
+				"CacheManagerStub.js",
+				"background.js"
+			]
+		}
+	},
+
+	"permissions": [
+		{
+			"socket": [
+				"tcp-connect",
+				"tcp-listen"
+			]
+		},
+		"http://*/*",
+		"https://*/*",
+		"background"
+	]
+}
